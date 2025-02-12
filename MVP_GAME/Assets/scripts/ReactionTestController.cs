@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
+using TMPro;
 
 public class ReactionTestController : MonoBehaviour
 {
     public GameObject[] gameObjects; // Array to hold the 3 game objects
     public GameObject newGameObject; // The new game object to spawn
+    public TextMeshProUGUI scoreText; // Reference to the TextMeshProUGUI component
     private float initialDelay = 1f; // Initial delay before starting the coroutine
 
     // Define the boundaries of the square
-    private Vector3 squareMin = new Vector3(-2f, -2.5f, 0f); // Bottom-left corner of the square
+    private Vector3 squareMin = new Vector3(-1.2f, -2.5f, 0f); // Bottom-left corner of the square
     private Vector3 squareMax = new Vector3(1f, -0.5f, 0f); // Top-right corner of the square
 
     private Stopwatch stopwatch;
+    private int score = 0;
 
     void Start()
     {
@@ -53,12 +56,19 @@ public class ReactionTestController : MonoBehaviour
         if (touchController != null)
         {
             touchController.SetStopwatch(stopwatch);
-            stopwatch.Start();
+            touchController.SetReactionTestController(this); // Pass the reference to this controller
+            stopwatch.Restart(); // Restart the stopwatch
             UnityEngine.Debug.Log("Stopwatch started.");
         }
         else
         {
             UnityEngine.Debug.LogError("TouchController component not found on the spawned object.");
         }
+    }
+
+    public void UpdateScore(long reactionTime)
+    {
+        score++;
+        scoreText.text = "Reaction Time: " + reactionTime + " ms";
     }
 }

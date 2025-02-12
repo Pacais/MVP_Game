@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class GameManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
 
+     public void ReloadScene()
+    {
+        // Reload the current scene
+       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
 
     public void QuitGame()

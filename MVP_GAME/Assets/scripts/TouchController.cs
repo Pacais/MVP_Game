@@ -1,15 +1,20 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Diagnostics;
-using Unity.VisualScripting;
 
 public class TouchController : MonoBehaviour, IPointerDownHandler
 {
     private Stopwatch stopwatch;
+    private ReactionTestController reactionTestController;
 
     public void SetStopwatch(Stopwatch sw)
     {
         stopwatch = sw;
+    }
+
+    public void SetReactionTestController(ReactionTestController controller)
+    {
+        reactionTestController = controller;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -18,9 +23,17 @@ public class TouchController : MonoBehaviour, IPointerDownHandler
         if (stopwatch != null && stopwatch.IsRunning)
         {
             stopwatch.Stop();
-            UnityEngine.Debug.Log("Reaction time: " + stopwatch.ElapsedMilliseconds + " ms");
+            long reactionTime = stopwatch.ElapsedMilliseconds;
+            UnityEngine.Debug.Log("Reaction time: " + reactionTime + " ms");
+
+            // Update the score with the reaction time
+            if (reactionTestController != null)
+            {
+                reactionTestController.UpdateScore(reactionTime);
+            }
         }
 
+        // Destroy the game object
         Destroy(gameObject);
     }
 }
