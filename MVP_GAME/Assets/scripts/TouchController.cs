@@ -37,3 +37,4 @@ public class TouchController : MonoBehaviour, IPointerDownHandler
         Destroy(gameObject);
     }
 }
+
