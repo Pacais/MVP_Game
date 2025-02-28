@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RandomSpawn : MonoBehaviour
 {
     public GameObject objectToSpawn;
     public Vector3 spawnArea = new Vector3(10, 0, 10);
     public float spawnInterval = 2.0f;
+    public TMP_Text squaresTouchedText; // Reference to the TextMeshPro component for squares touched
 
     private float timer;
+    private int squaresTouched = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +29,12 @@ public class RandomSpawn : MonoBehaviour
             SpawnObject();
             timer = spawnInterval;
         }
+
+        // Update the UI Text with the number of squares touched
+        if (squaresTouchedText != null)
+        {
+            squaresTouchedText.text = $"Squares Touched: {squaresTouched}";
+        }
     }
 
     void SpawnObject()
@@ -36,18 +45,21 @@ public class RandomSpawn : MonoBehaviour
             0  // z coordinate (assuming 2D, set to 0)
         );
 
-        Instantiate(objectToSpawn, randomPosition, Quaternion.identity);
+        GameObject square = Instantiate(objectToSpawn, randomPosition, Quaternion.identity);
+        square.GetComponent<TrainingSquare>().SetRandomSpawn(this);
     }
 
-   
-
-
-    void OnCollisionEnter(Collision collision)
+    public void OnSquareTouched()
     {
-        if (collision.gameObject == objectToSpawn)
+        squaresTouched++;
+
+        // Update the UI Text
+        if (squaresTouchedText != null)
         {
-            Destroy(collision.gameObject);
-            SpawnObject();
+            squaresTouchedText.text = $"Squares Touched: {squaresTouched}";
         }
+
+        // Spawn the next square
+        SpawnObject();
     }
 }
