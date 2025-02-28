@@ -1115,7 +1115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7675859375320162166, guid: 2219f6674cdaab54bb407cf7809b84dd, type: 3}
       propertyPath: m_Name
-      value: TraficLight
+      value: Canva
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1437,7 +1437,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SceneRandom
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1830200675
