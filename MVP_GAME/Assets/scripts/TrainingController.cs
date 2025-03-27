@@ -9,7 +9,7 @@ public class TrainingController : MonoBehaviour
     public GameObject squarePrefab; // The prefab to spawn
     public TMP_Text squaresTouchedText; // Reference to the TextMeshPro component for squares touched
     public TMP_Text averageTimeText; // Reference to the TextMeshPro component for average time
-    private Vector3[] positions = new Vector3[5]; // Array to hold the 5 fixed positions
+    private Vector3[] positions = new Vector3[8]; // Array to hold the 8 fixed positions
     private List<GameObject> spawnedSquares = new List<GameObject>(); // List to hold the spawned squares
 
     private Stopwatch totalStopwatch;
@@ -20,12 +20,15 @@ public class TrainingController : MonoBehaviour
 
     void Start()
     {
-        // Define the 5 fixed positions for a 1920x1080 resolution in landscape mode
-        positions[0] = new Vector3(-1.8f, 4f, 0f); // Top-left (moved 0.2 towards center)
-        positions[1] = new Vector3(1.8f, 4f, 0f); // Top-right (moved 0.2 outwards)
-        positions[2] = new Vector3(0f, 0.4f, 0f); // Center
-        positions[3] = new Vector3(-1.8f, -1.7f, 0f); // Bottom-left (moved 0.2 towards center)
-        positions[4] = new Vector3(2.2f, -1.7f, 0f); // Bottom-right (moved 0.2 outwards)
+        // Define the 8 fixed positions for a 1920x1080 resolution in landscape mode
+        positions[0] = new Vector3(-1.88f, 4.536f, 0f); // Top-left (moved 0.2 towards center)
+        positions[1] = new Vector3(1.863f, 4.525f, 0f); // Top-right (moved 0.2 outwards)
+        positions[2] = new Vector3(-0.91f, 2.719f, 0f); // Mid-top Left
+        positions[3] = new Vector3(0.895f, 2.697f, 0f); // Mid-top Right
+        positions[4] = new Vector3(-0.91f, -1.826f, 0f); // Mid-bottom Left
+        positions[5] = new Vector3(0.897f, -1.811f, 0f); // Mid-bottom Right
+        positions[6] = new Vector3(-1.886f, -3.63f, 0f); // Bottom-Left
+        positions[7] = new Vector3(1.866f, -3.634f, 0f); // Bottom-Right
 
         totalStopwatch = new Stopwatch();
         touchStopwatch = new Stopwatch();
@@ -35,6 +38,7 @@ public class TrainingController : MonoBehaviour
     IEnumerator StartTraining()
     {
         // Spawn all squares at the beginning
+        /*
         foreach (Vector3 position in positions)
         {
             GameObject square = Instantiate(squarePrefab, position, Quaternion.identity);
@@ -52,11 +56,14 @@ public class TrainingController : MonoBehaviour
         }
 
         initialSquaresHidden = true;
+        */
 
         // Start the training
+        initialSquaresHidden = true; // Ensure this is set to true
         totalStopwatch.Start();
         touchStopwatch.Start();
         SpawnNextSquare();
+        yield return null;
     }
 
     void SpawnNextSquare()
